@@ -1,16 +1,18 @@
 # 构建镜像
-docker build -t anonymous-ftp .
+docker build -t anonymous-http .
 
 # 启动
 docker run -d \
-  --name anonymous-ftp \
-  -p 21:21 \
-  -p 30000-30009:30000-30009 \
-  -v $(pwd)/ftp_data:/ftp \
-  anonymous-ftp
+  --name anonymous-http \
+  -p 8080:8080 \
+  -v $(pwd)/ftp_data:/app/ftp_root \
+  anonymous-http
 
-# 测试上传
-curl -T logo.png ftp://127.0.0.1/
+# 上传文件
+curl -T file.txt http://127.0.0.1:8080/file.txt
 
-测试下载
-wget ftp://127.0.0.1/logo.png
+# 下载文件
+curl -O http://127.0.0.1:8080/file.txt
+
+# 浏览目录
+curl http://127.0.0.1:8080/
