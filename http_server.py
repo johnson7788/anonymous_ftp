@@ -4,7 +4,7 @@ import urllib.parse
 import html
 
 # HTTP 共享目录
-ROOT_DIR = "./ftp_root"
+ROOT_DIR = "/data"
 
 # 自动创建目录
 os.makedirs(ROOT_DIR, exist_ok=True)
@@ -116,17 +116,17 @@ class HTTPFileHandler(http.server.SimpleHTTPRequestHandler):
 
 
 # 监听地址和端口
-address = ("0.0.0.0", 8080)
+address = ("0.0.0.0", 8088)
 
 server = http.server.ThreadingHTTPServer(address, HTTPFileHandler)
 
 print("匿名 HTTP 文件服务器已启动")
 print(f"共享目录: {os.path.abspath(ROOT_DIR)}")
-print("端口: 8080")
+print("端口: 8088")
 print("")
 print("用法示例:")
-print(f"  上传: curl -T file.txt http://127.0.0.1:8080/file.txt")
-print(f"  下载: curl -O http://127.0.0.1:8080/file.txt")
-print(f"  浏览: curl http://127.0.0.1:8080/")
+print(f"  上传: curl -T file.txt http://127.0.0.1:8088/file.txt")
+print(f"  下载: curl -O http://127.0.0.1:8088/file.txt")
+print(f"  浏览: curl http://127.0.0.1:8088/")
 
 server.serve_forever()

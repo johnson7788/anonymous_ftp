@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY http_server.py .
 
-EXPOSE 8080
+RUN mkdir -p /data && chmod 777 /data
+
+EXPOSE 8088
 
 CMD ["python", "http_server.py"]
