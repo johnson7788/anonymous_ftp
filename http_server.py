@@ -68,7 +68,9 @@ class HTTPFileHandler(http.server.SimpleHTTPRequestHandler):
 
         self.send_response(200)
         self.send_header("Content-Type", "application/octet-stream")
-        self.send_header("Content-Disposition", f'attachment; filename="{filename}"')
+        # RFC 5987: 对非 ASCII 文件名进行编码，避免反向代理返回 502
+        encoded_filename = urllib.parse.quote(filename, safe='')
+        self.send_header("Content-Disposition", f"attachment; filename*=UTF-8''{encoded_filename}")
         self.send_header("Content-Length", str(file_size))
         self.end_headers()
 
